@@ -1,23 +1,28 @@
-variable "fgt_host" {
-  type = string
-}
-
 variable "fgt_token" {
-  type      = string
-  sensitive = true
+  description = "FortiGate API token (demo assumes same token for all devices)"
+  type        = string
+  sensitive   = true
 }
 
-variable "rules" {
-  description = "Firewall policy rules to manage (data-driven)."
-  type = map(object({
-    srcintf = string
-    dstintf = string
-    srcaddr = list(string)
-    dstaddr = list(string)
-    service = list(string)
-    action  = string
-    log     = string
-    nat     = bool
-  }))
+variable "insecure_tls" {
+  description = "Skip TLS verification for FortiGate API"
+  type        = bool
+  default     = true
+}
+
+# Shared “project” parameters
+variable "project" {
+  type    = string
+  default = "corp-sec-fw-automation"
+}
+
+variable "siem_ip" {
+  type    = string
+  default = "10.99.10.50"
+}
+
+variable "admin_net" {
+  type    = string
+  default = "10.99.0.0 255.255.0.0"
 }
 
