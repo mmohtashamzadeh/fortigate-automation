@@ -1,0 +1,9 @@
+---
+- name: Operational tasks (post-apply checks / quick ops)
+  hosts: fortigates
+  gather_facts: no
+  tasks:
+    - name: Placeholder - e.g. verify policy exists / check health
+      debug:
+        msg: "Run operational verification here."
+

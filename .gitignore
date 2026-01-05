@@ -1,0 +1,22 @@
+# Terraform
+**/.terraform/*
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/.terraform.lock.hcl
+**/tfplan
+
+# Secrets / vars
+**/*.auto.tfvars
+envs/*secrets*
+**/*.pem
+**/*.key
+
+# Ansible
+**/*.retry
+**/__pycache__/
+ansible/inventory/*.ini.bak
+
+# OS
+.DS_Store
+

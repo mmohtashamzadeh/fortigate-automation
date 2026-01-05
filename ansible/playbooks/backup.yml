@@ -1,0 +1,9 @@
+---
+- name: Backup FortiGate configuration
+  hosts: fortigates
+  gather_facts: no
+  tasks:
+    - name: Placeholder - implement Fortinet backup method
+      debug:
+        msg: "Run FortiGate backup here (API/SSH), store artifact in Jenkins."
+
