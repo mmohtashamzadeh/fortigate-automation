@@ -1,6 +1,16 @@
-variable "hostname" { type = string }
-variable "token"    { type = string sensitive = true }
-variable "insecure" { type = bool }
+variable "hostname" {
+  type = string
+}
+
+variable "token" {
+  type      = string
+  sensitive = true
+}
+
+variable "insecure" {
+  type = bool
+}
+
 
 variable "interfaces" {
   type = object({
