@@ -1,8 +1,3 @@
-provider "fortios" {
-  hostname = var.hostname
-  token    = var.token
-  insecure = var.insecure
-}
 
 # Address objects
 resource "fortios_firewall_address" "addr" {
@@ -14,7 +9,7 @@ resource "fortios_firewall_address" "addr" {
 }
 
 # Custom services (TCP only, demo)
-resource "fortios_firewall_service_custom" "svc" {
+resource "fortios_firewallservice_custom" "svc" {
   for_each = var.services
 
   name          = each.key
@@ -53,7 +48,7 @@ resource "fortios_firewall_policy" "pol" {
 
   depends_on = [
     fortios_firewall_address.addr,
-    fortios_firewall_service_custom.svc
+    fortios_firewallservice_custom.svc
   ]
 }
 
