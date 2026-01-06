@@ -1,9 +1,16 @@
 ---
-- name: Operational tasks (post-apply checks / quick ops)
+- name: Post-change verification (read-only)
   hosts: fortigates
   gather_facts: no
+
   tasks:
-    - name: Placeholder - e.g. verify policy exists / check health
+    - name: Run a status command
+      ansible.builtin.shell: |
+        get system status
+      register: status
+      changed_when: false
+
+    - name: Print hostname/version snippet
       debug:
-        msg: "Run operational verification here."
+        msg: "{{ inventory_hostname }} -> {{ (status.stdout_lines | select('search','Version|Hostname') | list) | default([]) }}"
 

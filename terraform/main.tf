@@ -7,9 +7,9 @@ module "fortigate" {
   for_each = local.firewalls
   source   = "./modules/fortigate_device"
 
-  hostname   = each.value.host
-  token      = var.fgt_token
-  insecure   = var.insecure_tls
+  hostname = each.value.host
+  token    = var.fgt_token
+  insecure = var.insecure_tls
 
   interfaces = each.value.interfaces
   addresses  = each.value.addresses

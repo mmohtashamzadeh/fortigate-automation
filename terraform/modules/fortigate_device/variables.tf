@@ -1,48 +1,27 @@
-variable "hostname" {
-  type = string
+variable "fgt_token" {
+  description = "FortiGate API token (demo assumes same token for all devices)"
+  type        = string
+  sensitive   = true
 }
 
-variable "token" {
-  type      = string
-  sensitive = true
+variable "insecure_tls" {
+  description = "Skip TLS verification for FortiGate API"
+  type        = bool
+  default     = true
 }
 
-variable "insecure" {
-  type = bool
+# Shared “project” parameters
+variable "project" {
+  type    = string
+  default = "corp-sec-fw-automation"
 }
 
-
-variable "interfaces" {
-  type = object({
-    lan = string
-    wan = string
-    dmz = string
-  })
+variable "siem_ip" {
+  type    = string
+  default = "10.99.10.50"
 }
 
-variable "addresses" {
-  type = map(object({
-    subnet = string
-  }))
+variable "admin_net" {
+  type    = string
+  default = "10.99.0.0 255.255.0.0"
 }
-
-variable "services" {
-  type = map(object({
-    tcp_portrange = string
-  }))
-}
-
-variable "policies" {
-  type = map(object({
-    policyid = number
-    srcintf  = string  # "lan" | "wan" | "dmz" (keys in interfaces)
-    dstintf  = string
-    srcaddr  = list(string)
-    dstaddr  = list(string)
-    service  = list(string) # built-in or custom
-    action   = string       # accept/deny
-    nat      = bool
-    log      = string       # all/utm/disable (depends on FortiOS)
-  }))
-}
-

@@ -1,9 +1,30 @@
 ---
-- name: Backup FortiGate configuration
+- name: Backup FortiGate config (CLI via SSH)
   hosts: fortigates
   gather_facts: no
+
+  vars:
+    backup_dir: "{{ lookup('env', 'WORKSPACE') | default('.', true) }}/artifacts/backups"
+
   tasks:
-    - name: Placeholder - implement Fortinet backup method
-      debug:
-        msg: "Run FortiGate backup here (API/SSH), store artifact in Jenkins."
+    - name: Ensure backup directory exists (controller)
+      delegate_to: localhost
+      run_once: true
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Run 'show full-configuration' and save output
+      ansible.builtin.shell: |
+        show full-configuration
+      register: cfg
+      changed_when: false
+
+    - name: Write backup file per firewall (controller)
+      delegate_to: localhost
+      copy:
+        content: "{{ cfg.stdout }}\n"
+        dest: "{{ backup_dir }}/{{ inventory_hostname }}-{{ ansible_date_time.iso8601_basic }}.conf"
+        mode: "0644"
 

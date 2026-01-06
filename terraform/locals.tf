@@ -21,8 +21,8 @@ locals {
       addresses = {
         format("LAN_%02d_NET", n) = { subnet = format("10.%d.0.0 255.255.255.0", n) }
         format("DMZ_%02d_NET", n) = { subnet = format("172.16.%d.0 255.255.255.0", n) }
-        "ADMIN_NET"              = { subnet = var.admin_net }
-        "SIEM_COLLECTOR"         = { subnet = "${var.siem_ip} 255.255.255.255" }
+        "ADMIN_NET"               = { subnet = var.admin_net }
+        "SIEM_COLLECTOR"          = { subnet = "${var.siem_ip} 255.255.255.255" }
       }
 
       # Custom services

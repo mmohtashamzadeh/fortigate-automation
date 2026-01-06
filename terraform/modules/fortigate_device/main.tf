@@ -8,8 +8,8 @@ provider "fortios" {
 resource "fortios_firewall_address" "addr" {
   for_each = var.addresses
 
-  name = each.key
-  type = "ipmask"
+  name   = each.key
+  type   = "ipmask"
   subnet = each.value.subnet
 }
 
@@ -17,7 +17,7 @@ resource "fortios_firewall_address" "addr" {
 resource "fortios_firewall_service_custom" "svc" {
   for_each = var.services
 
-  name = each.key
+  name          = each.key
   tcp_portrange = each.value.tcp_portrange
 }
 
